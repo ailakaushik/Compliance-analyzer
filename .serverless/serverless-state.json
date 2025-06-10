@@ -1,0 +1,270 @@
+{
+  "service": {
+    "service": "compliance-analyzer-api",
+    "serviceObject": {
+      "name": "compliance-analyzer-api"
+    },
+    "provider": {
+      "name": "aws",
+      "runtime": "python3.9",
+      "region": "us-east-2",
+      "profile": "hackathon-sso",
+      "httpApi": {
+        "cors": true
+      },
+      "role": "arn:aws:iam::144274058030:role/MyNgoComplianceLambdaRole",
+      "stage": "dev",
+      "versionFunctions": true,
+      "compiledCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "AnalyzeLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/compliance-analyzer-api-dev-analyze"
+            }
+          },
+          "AnalyzeLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": "serverless-framework-deployments-us-east-2-426aa2c2-e6a5",
+                "S3Key": "serverless/compliance-analyzer-api/dev/1749582592811-2025-06-10T19:09:52.811Z/compliance-analyzer-api.zip"
+              },
+              "Handler": "handler.analyze",
+              "Runtime": "python3.9",
+              "FunctionName": "compliance-analyzer-api-dev-analyze",
+              "MemorySize": 1024,
+              "Timeout": 30,
+              "Role": "arn:aws:iam::144274058030:role/MyNgoComplianceLambdaRole"
+            },
+            "DependsOn": [
+              "AnalyzeLogGroup"
+            ]
+          },
+          "AnalyzeLambdaVersion1HNTILUkHTZYj3EJVYm9G7aqtNIKMgSI9bcXdL5sdw": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "AnalyzeLambdaFunction"
+              },
+              "CodeSha256": "5Hn3iEkMDJFk5Gbnj0ZsAIdb85k98myA4g8e4GTYe8o="
+            }
+          },
+          "HttpApi": {
+            "Type": "AWS::ApiGatewayV2::Api",
+            "Properties": {
+              "Name": "dev-compliance-analyzer-api",
+              "ProtocolType": "HTTP",
+              "CorsConfiguration": {
+                "AllowHeaders": [
+                  "Content-Type",
+                  "X-Amz-Date",
+                  "Authorization",
+                  "X-Api-Key",
+                  "X-Amz-Security-Token",
+                  "X-Amz-User-Agent",
+                  "X-Amzn-Trace-Id"
+                ],
+                "AllowMethods": [
+                  "OPTIONS",
+                  "POST"
+                ],
+                "AllowOrigins": [
+                  "*"
+                ]
+              }
+            }
+          },
+          "HttpApiStage": {
+            "Type": "AWS::ApiGatewayV2::Stage",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "StageName": "$default",
+              "AutoDeploy": true,
+              "DefaultRouteSettings": {
+                "DetailedMetricsEnabled": false
+              }
+            }
+          },
+          "AnalyzeLambdaPermissionHttpApi": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "AnalyzeLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "HttpApi"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "HttpApiIntegrationAnalyze": {
+            "Type": "AWS::ApiGatewayV2::Integration",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "IntegrationType": "AWS_PROXY",
+              "IntegrationUri": {
+                "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"AnalyzeLambdaPermissionHttpApi\"][\"Properties\"][\"FunctionName\"]"
+              },
+              "PayloadFormatVersion": "2.0",
+              "TimeoutInMillis": 30000
+            }
+          },
+          "HttpApiRoutePostAnalyze": {
+            "Type": "AWS::ApiGatewayV2::Route",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "RouteKey": "POST /analyze",
+              "Target": {
+                "Fn::Join": [
+                  "/",
+                  [
+                    "integrations",
+                    {
+                      "Ref": "HttpApiIntegrationAnalyze"
+                    }
+                  ]
+                ]
+              }
+            },
+            "DependsOn": "HttpApiIntegrationAnalyze"
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": "serverless-framework-deployments-us-east-2-426aa2c2-e6a5",
+            "Export": {
+              "Name": "sls-compliance-analyzer-api-dev-ServerlessDeploymentBucketName"
+            }
+          },
+          "AnalyzeLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "AnalyzeLambdaVersion1HNTILUkHTZYj3EJVYm9G7aqtNIKMgSI9bcXdL5sdw"
+            },
+            "Export": {
+              "Name": "sls-compliance-analyzer-api-dev-AnalyzeLambdaFunctionQualifiedArn"
+            }
+          },
+          "HttpApiId": {
+            "Description": "Id of the HTTP API",
+            "Value": {
+              "Ref": "HttpApi"
+            },
+            "Export": {
+              "Name": "sls-compliance-analyzer-api-dev-HttpApiId"
+            }
+          },
+          "HttpApiUrl": {
+            "Description": "URL of the HTTP API",
+            "Value": {
+              "Fn::Join": [
+                "",
+                [
+                  "https://",
+                  {
+                    "Ref": "HttpApi"
+                  },
+                  ".execute-api.",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ".",
+                  {
+                    "Ref": "AWS::URLSuffix"
+                  }
+                ]
+              ]
+            },
+            "Export": {
+              "Name": "sls-compliance-analyzer-api-dev-HttpApiUrl"
+            }
+          }
+        }
+      },
+      "vpc": {}
+    },
+    "pluginsData": {},
+    "functions": {
+      "analyze": {
+        "handler": "handler.analyze",
+        "timeout": 30,
+        "events": [
+          {
+            "httpApi": {
+              "path": "/analyze",
+              "method": "post",
+              "payload": "1.0"
+            },
+            "resolvedMethod": "POST",
+            "resolvedPath": "/analyze"
+          }
+        ],
+        "name": "compliance-analyzer-api-dev-analyze",
+        "package": {},
+        "memory": 1024,
+        "runtime": "python3.9",
+        "vpc": {},
+        "versionLogicalId": "AnalyzeLambdaVersion1HNTILUkHTZYj3EJVYm9G7aqtNIKMgSI9bcXdL5sdw"
+      }
+    },
+    "configValidationMode": "warn",
+    "serviceFilename": "serverless",
+    "initialServerlessConfig": {
+      "org": "ngocompliance",
+      "app": "compliance-analyzer-api",
+      "service": "compliance-analyzer-api",
+      "frameworkVersion": "4",
+      "provider": {
+        "$ref": "$[\"service\"][\"provider\"]"
+      },
+      "functions": {
+        "$ref": "$[\"service\"][\"functions\"]"
+      }
+    },
+    "app": "compliance-analyzer-api",
+    "appId": null,
+    "org": "ngocompliance",
+    "orgId": null,
+    "layers": {},
+    "artifact": "D:\\DTCC\\AIStudio\\.serverless\\compliance-analyzer-api.zip"
+  },
+  "package": {
+    "artifactDirectoryName": "serverless/compliance-analyzer-api/dev/1749582592811-2025-06-10T19:09:52.811Z",
+    "artifact": "compliance-analyzer-api.zip"
+  }
+}

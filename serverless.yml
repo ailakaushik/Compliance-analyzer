@@ -1,0 +1,24 @@
+org: ngocompliance
+app: compliance-analyzer-api
+# ... NEW, CORRECT VERSION ...
+service: compliance-analyzer-api
+frameworkVersion: '4' # Since you downgraded to V3
+
+provider:
+  name: aws
+  runtime: python3.9
+  region: us-east-2 # <-- CHANGE TO us-east-2
+  profile: hackathon-sso
+  httpApi: # <--- Add this new top-level block
+    cors: true
+  role: arn:aws:iam::144274058030:role/MyNgoComplianceLambdaRole
+
+functions:
+  analyze:
+    handler: handler.analyze
+    timeout: 30 
+    events:
+      - httpApi:
+          path: /analyze
+          method: post
+          payload: '1.0' # <-- ADD THIS LINE
