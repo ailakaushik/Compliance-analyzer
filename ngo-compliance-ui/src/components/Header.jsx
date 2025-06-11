@@ -8,16 +8,18 @@ const Header = () => {
   return (
     <AppBar
       position="static"
-      elevation={6}
-      sx={{
+      elevation={6}      sx={{
         background: 'linear-gradient(90deg, #1976d2 0%, #42a5f5 100%)',
         borderRadius: '0 0 18px 18px',
-        boxShadow: '0 4px 24px 0 rgba(25, 118, 210, 0.15)',
-        paddingX: { xs: 1, sm: 4 },
-        paddingY: 0.5,
+        boxShadow: '0 4px 24px 0 rgba(25, 118, 210, 0.15)'
       }}
-    >
-      <Toolbar disableGutters>
+    >      <Toolbar 
+        sx={{ 
+          minHeight: { xs: 56, sm: 64 },
+          px: { xs: 2, sm: 4 },
+          py: 0.5
+        }}
+      >
         <IconButton
           size="large"
           edge="start"

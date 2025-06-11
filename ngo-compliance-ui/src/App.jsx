@@ -9,12 +9,16 @@ import {
   CircularProgress,
   Alert
 } from '@mui/material';
+import { Routes, Route } from 'react-router-dom';
 
 import UploadForm from './components/UploadForm';
 import ComplianceDashboard from './components/ComplianceDashboard';
 import Header from './components/Header';
 import AboutApp from './components/AboutApp';
 import Footer from './components/Footer'; // ✅ Import Footer
+import TermsOfService from './components/TermsOfService';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import Contact from './components/Contact';
 
 const theme = createTheme({
   palette: {
@@ -26,6 +30,18 @@ const theme = createTheme({
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     h4: { fontWeight: 600 },
     h5: { fontWeight: 500 },
+  },
+  components: {
+    MuiContainer: {
+      styleOverrides: {
+        root: {
+          '@media (min-width: 1200px)': {
+            maxWidth: '100%',
+            padding: '0 48px',
+          },
+        },
+      },
+    },
   },
 });
 
@@ -58,61 +74,67 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', width: '100%' }}>
         <Header />
-        
-        {/* Main Content */}
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1,
-            py: 4,
-            backgroundColor: 'background.default',
-          }}
-        >
-          <Container maxWidth="xl">
-            <Box sx={{ my: 2 }}>
-              {!analysisResult && !isLoading && (
-                <>
-                  <Typography variant="h4" component="h1" gutterBottom align="center">
-                    Cross-Border Regulatory Compliance Tool
-                  </Typography>
-                  <Typography variant="h6" align="center" color="text.secondary" paragraph>
-                    Upload your NGO's policy documents to instantly analyze compliance against global regulations.
-                  </Typography>
-                </>
-              )}
-              {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
-            </Box>
+        <Routes>
+          <Route path="/terms-of-use" element={<TermsOfService />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/" element={
+            <Box
+              component="main"
+              sx={{
+                flexGrow: 1,
+                py: 4,
+                px: { xs: 2, sm: 3 },
+                backgroundColor: 'background.default',
+                width: '100%'
+              }}
+            >
+              <Container maxWidth="xl">
+                <Box sx={{ my: 2 }}>
+                  {!analysisResult && !isLoading && (
+                    <>
+                      <Typography variant="h4" component="h1" gutterBottom align="center">
+                        Cross-Border Regulatory Compliance Tool
+                      </Typography>
+                      <Typography variant="h6" align="center" color="text.secondary" paragraph>
+                        Upload your NGO's policy documents to instantly analyze compliance against global regulations.
+                      </Typography>
+                    </>
+                  )}
+                  {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+                </Box>
 
-            {!analysisResult ? (
-              <Box>
-                {isLoading ? (
-                  <Box display="flex" flexDirection="column" alignItems="center" mt={4}>
-                    <CircularProgress size={60} />
-                    <Typography variant="h6" sx={{ mt: 2 }}>
-                      Analyzing your documents... This may take a moment.
-                    </Typography>
+                {!analysisResult ? (
+                  <Box>
+                    {isLoading ? (
+                      <Box display="flex" flexDirection="column" alignItems="center" mt={4}>
+                        <CircularProgress size={60} />
+                        <Typography variant="h6" sx={{ mt: 2 }}>
+                          Analyzing your documents... This may take a moment.
+                        </Typography>
+                      </Box>
+                    ) : (
+                      <>
+                        <Box display="flex" justifyContent="center" sx={{ mt: 4 }}>
+                          <UploadForm
+                            onAnalysisStart={handleAnalysisStart}
+                            onAnalysisSuccess={handleAnalysisSuccess}
+                            onAnalysisError={handleAnalysisError}
+                          />
+                        </Box>
+                        <AboutApp />
+                      </>
+                    )}
                   </Box>
                 ) : (
-                  <>
-                    <Box display="flex" justifyContent="center" sx={{ mt: 4 }}>
-                      <UploadForm
-                        onAnalysisStart={handleAnalysisStart}
-                        onAnalysisSuccess={handleAnalysisSuccess}
-                        onAnalysisError={handleAnalysisError}
-                      />
-                    </Box>
-                    <AboutApp />
-                  </>
+                  <ComplianceDashboard result={analysisResult} onReset={handleReset} />
                 )}
-              </Box>
-            ) : (
-              <ComplianceDashboard result={analysisResult} onReset={handleReset} />
-            )}
-          </Container>
-        </Box>
-
+              </Container>
+            </Box>
+          } />
+        </Routes>
         {/* ✅ Footer at the bottom */}
         <Footer />
       </Box>
