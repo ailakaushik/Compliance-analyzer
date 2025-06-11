@@ -1,36 +1,41 @@
-import React from 'react';
-import {
-  Box,
-  Typography,
-  TextField,
-  Button,
-  Paper,
-  Divider,
-  Stack,
-  IconButton,
-} from '@mui/material';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import LanguageIcon from '@mui/icons-material/Language';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import LanguageIcon from '@mui/icons-material/Language';
+import {
+  Box,
+  Button,
+  Divider,
+  IconButton,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 
 const GetInTouchForm = () => {
   return (
-    <Box sx={{ backgroundColor: '#f6f9fc', py: 8, px: 2 }}>
+    <Box
+      sx={{
+        background: 'linear-gradient(120deg, #23263a 0%, #181a20 100%)',
+        py: 8,
+        px: 2,
+        minHeight: '100vh',
+      }}
+    >
       <Typography
         variant="h4"
         align="center"
         fontWeight={700}
         gutterBottom
-        sx={{ color: '#1976d2' }}
+        sx={{ color: 'var(--primary-dark)' }}
       >
         Get in Touch
       </Typography>
       <Typography
         variant="body1"
         align="center"
-        color="text.secondary"
-        mb={4}
+        sx={{ color: 'var(--text-muted)', mb: 4 }}
       >
         We'd love to hear from you. Please fill out this form or use our contact information below.
       </Typography>
@@ -40,8 +45,12 @@ const GetInTouchForm = () => {
           elevation={3}
           sx={{
             p: 4,
-            borderRadius: 3,
-            background: '#fff',
+            borderRadius: 'var(--border-radius)',
+            background: 'var(--card-bg)',
+            color: 'var(--text-main)',
+            boxShadow: 'var(--shadow)',
+            border: '1px solid #262a40',
+            backdropFilter: 'blur(8px)',
           }}
         >
           <Box component="form" noValidate>
@@ -50,12 +59,38 @@ const GetInTouchForm = () => {
               fullWidth
               variant="outlined"
               margin="normal"
+              InputProps={{
+                sx: {
+                  background: '#23263a',
+                  color: 'var(--text-main)',
+                  borderRadius: 2,
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#262a40',
+                  },
+                },
+              }}
+              InputLabelProps={{
+                sx: { color: 'var(--text-muted)' },
+              }}
             />
             <TextField
               label="Last Name *"
               fullWidth
               variant="outlined"
               margin="normal"
+              InputProps={{
+                sx: {
+                  background: '#23263a',
+                  color: 'var(--text-main)',
+                  borderRadius: 2,
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#262a40',
+                  },
+                },
+              }}
+              InputLabelProps={{
+                sx: { color: 'var(--text-muted)' },
+              }}
             />
             <TextField
               label="Email *"
@@ -63,12 +98,38 @@ const GetInTouchForm = () => {
               fullWidth
               variant="outlined"
               margin="normal"
+              InputProps={{
+                sx: {
+                  background: '#23263a',
+                  color: 'var(--text-main)',
+                  borderRadius: 2,
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#262a40',
+                  },
+                },
+              }}
+              InputLabelProps={{
+                sx: { color: 'var(--text-muted)' },
+              }}
             />
             <TextField
               label="Subject *"
               fullWidth
               variant="outlined"
               margin="normal"
+              InputProps={{
+                sx: {
+                  background: '#23263a',
+                  color: 'var(--text-main)',
+                  borderRadius: 2,
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#262a40',
+                  },
+                },
+              }}
+              InputLabelProps={{
+                sx: { color: 'var(--text-muted)' },
+              }}
             />
             <TextField
               label="Message *"
@@ -77,6 +138,19 @@ const GetInTouchForm = () => {
               minRows={4}
               variant="outlined"
               margin="normal"
+              InputProps={{
+                sx: {
+                  background: '#23263a',
+                  color: 'var(--text-main)',
+                  borderRadius: 2,
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#262a40',
+                  },
+                },
+              }}
+              InputLabelProps={{
+                sx: { color: 'var(--text-muted)' },
+              }}
             />
             <Button
               variant="contained"
@@ -85,12 +159,13 @@ const GetInTouchForm = () => {
                 mt: 3,
                 fontWeight: 'bold',
                 textTransform: 'uppercase',
-                background: 'linear-gradient(to right, #1e88e5, #42a5f5)',
-                boxShadow: '0 4px 12px rgba(33, 150, 243, 0.3)',
+                background: 'linear-gradient(90deg, var(--primary), var(--accent))',
+                boxShadow: '0 4px 12px rgba(99, 102, 241, 0.18)',
                 borderRadius: 2,
+                color: '#fff',
                 '&:hover': {
-                  background: 'linear-gradient(to right, #1565c0, #1e88e5)',
-                }
+                  background: 'linear-gradient(90deg, var(--accent), var(--primary))',
+                },
               }}
             >
               Send Message
@@ -100,22 +175,22 @@ const GetInTouchForm = () => {
       </Box>
 
       <Box mt={5} textAlign="center">
-        <Divider sx={{ mb: 2 }}>
-          <Typography variant="body2" color="text.secondary">
+        <Divider sx={{ mb: 2, borderColor: '#23263a' }}>
+          <Typography variant="body2" sx={{ color: 'var(--text-muted)' }}>
             Follow Us
           </Typography>
         </Divider>
         <Stack direction="row" spacing={2} justifyContent="center">
-          <IconButton sx={{ color: 'primary.main' }}>
+          <IconButton sx={{ color: 'var(--primary)' }}>
             <FacebookIcon />
           </IconButton>
-          <IconButton sx={{ color: 'primary.main' }}>
+          <IconButton sx={{ color: 'var(--primary)' }}>
             <LinkedInIcon />
           </IconButton>
-          <IconButton sx={{ color: 'primary.main' }}>
+          <IconButton sx={{ color: 'var(--primary)' }}>
             <TwitterIcon />
           </IconButton>
-          <IconButton sx={{ color: 'primary.main' }}>
+          <IconButton sx={{ color: 'var(--primary)' }}>
             <LanguageIcon />
           </IconButton>
         </Stack>

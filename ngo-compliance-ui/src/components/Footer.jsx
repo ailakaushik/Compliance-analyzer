@@ -1,5 +1,4 @@
-import React from 'react';
-import { Box, Typography, Link, Container, Stack } from '@mui/material';
+import { Box, Container, Link, Stack, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
 const Footer = () => {
@@ -7,13 +6,14 @@ const Footer = () => {
     <Box
       component="footer"
       sx={{
-        background: 'linear-gradient(90deg, #1976d2 0%, #42a5f5 100%)',
-        color: '#fff',
+        background: 'var(--card-bg)',
+        color: 'var(--text-main)',
         py: 4,
         px: 2,
         mt: 'auto',
         borderRadius: '18px 18px 0 0',
-        boxShadow: '0 -4px 24px 0 rgba(25, 118, 210, 0.1)',
+        boxShadow: '0 -4px 24px 0 rgba(30, 41, 59, 0.13)',
+        borderTop: '1.5px solid #23263a',
       }}
     >
       <Container maxWidth="xl">
@@ -24,10 +24,10 @@ const Footer = () => {
           spacing={3}
         >
           <Box>
-            <Typography variant="h6" sx={{ fontWeight: 600 }}>
+            <Typography variant="h6" sx={{ fontWeight: 600, color: 'var(--primary)' }}>
               NGO Compliance Co-Pilot
             </Typography>
-            <Typography variant="body2" sx={{ mt: 1, maxWidth: 400 }}>
+            <Typography variant="body2" sx={{ mt: 1, maxWidth: 400, color: 'var(--text-muted)' }}>
               Empowering NGOs to navigate complex cross-border regulations with AI-driven document insights.
             </Typography>
           </Box>
@@ -37,7 +37,12 @@ const Footer = () => {
               component={RouterLink}
               to="/privacy-policy"
               underline="hover"
-              sx={{ color: '#fff', fontWeight: 500 }}
+              sx={{
+                color: 'var(--primary)',
+                fontWeight: 500,
+                transition: 'color 0.2s',
+                '&:hover': { color: 'var(--accent)' },
+              }}
             >
               Privacy Policy
             </Link>
@@ -45,7 +50,12 @@ const Footer = () => {
               component={RouterLink}
               to="/terms-of-use"
               underline="hover"
-              sx={{ color: '#fff', fontWeight: 500 }}
+              sx={{
+                color: 'var(--primary)',
+                fontWeight: 500,
+                transition: 'color 0.2s',
+                '&:hover': { color: 'var(--accent)' },
+              }}
             >
               Terms of Use
             </Link>
@@ -53,7 +63,12 @@ const Footer = () => {
               component={RouterLink}
               to="/contact"
               underline="hover"
-              sx={{ color: '#fff', fontWeight: 500 }}
+              sx={{
+                color: 'var(--primary)',
+                fontWeight: 500,
+                transition: 'color 0.2s',
+                '&:hover': { color: 'var(--accent)' },
+              }}
             >
               Contact Us
             </Link>
@@ -62,7 +77,14 @@ const Footer = () => {
 
         <Typography
           variant="caption"
-          sx={{ display: 'block', mt: 4, textAlign: 'center', opacity: 0.8 }}
+          sx={{
+            display: 'block',
+            mt: 4,
+            textAlign: 'center',
+            opacity: 0.7,
+            color: 'var(--text-muted)',
+            letterSpacing: 1,
+          }}
         >
           © {new Date().getFullYear()} POLI-SEE. All rights reserved.
         </Typography>

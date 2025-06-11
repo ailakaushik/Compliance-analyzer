@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { Box, Typography, Grid, Card, CardContent, Chip, Button, Paper, Tabs, Tab, Avatar, Tooltip } from '@mui/material';
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip as RechartsTooltip } from 'recharts';
-import { 
-    MdCheckCircle, 
-    MdWarning, 
-    MdError, 
-    MdHelpOutline, 
-    MdReplay, 
-    MdCalendarToday, 
-    MdAssessment, 
-    MdGavel, 
-    MdCorporateFare 
+import { Avatar, Box, Button, Card, CardContent, Chip, Grid, Paper, Tab, Tabs, Typography } from '@mui/material';
+import { useState } from 'react';
+import {
+    MdAssessment,
+    MdCalendarToday,
+    MdCheckCircle,
+    MdCorporateFare,
+    MdError,
+    MdGavel,
+    MdHelpOutline,
+    MdReplay,
+    MdWarning
 } from 'react-icons/md';
+import { Cell, Legend, Pie, PieChart, Tooltip as RechartsTooltip, ResponsiveContainer } from 'recharts';
 
 // MOCK DATA
 const mockDashboardData = {
@@ -111,22 +111,50 @@ const ComplianceDashboard = ({ result, onReset }) => {
             {tabIndex === 1 && (
                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
                     {result.compliance_breakdown.map((item) => (
-                        <Card key={item.clause_id} variant="outlined" sx={{ boxShadow: 2 }}>
+                        <Card
+                            key={item.clause_id}
+                            variant="outlined"
+                            sx={{
+                                boxShadow: 3,
+                                background: 'var(--card-bg)',
+                                borderRadius: 'var(--border-radius)',
+                                border: '1px solid #262a40',
+                                color: 'var(--text-main)',
+                                backdropFilter: 'blur(8px)',
+                                transition: 'box-shadow 0.2s, border 0.2s, background 0.2s',
+                                '&:hover': {
+                                    boxShadow: '0 12px 36px 0 rgba(99, 102, 241, 0.18)',
+                                    border: '1.5px solid var(--accent)',
+                                    background: '#262a40',
+                                },
+                            }}
+                        >
                             <CardContent sx={{ p: 3 }}>
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1.5 }}>
-                                    <Typography variant="body2" color="text.secondary">{item.clause_id}</Typography>
+                                    <Typography variant="body2" sx={{ color: 'var(--text-muted)' }}>{item.clause_id}</Typography>
                                     {getStatusChip(item.status)}
                                 </Box>
-                                <Typography variant="h6" component="p" sx={{ mb: 2 }}>{item.clause_text}</Typography>
+                                <Typography variant="h6" component="p" sx={{ mb: 2, color: 'var(--text-main)' }}>{item.clause_text}</Typography>
                                 {item.evidence_in_policy && (
-                                    <Box sx={{ p: 2, backgroundColor: '#e8f5e9', borderRadius: 1, mb: 2, borderLeft: `4px solid ${COLORS.Compliant}` }}>
-                                        <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>Evidence Found in Policy:</Typography>
-                                        <Typography variant="body2" sx={{ fontStyle: 'italic', color: '#1b5e20' }}>"{item.evidence_in_policy}"</Typography>
+                                    <Box sx={{
+                                        p: 2,
+                                        backgroundColor: 'rgba(46, 125, 50, 0.08)',
+                                        borderRadius: 1,
+                                        mb: 2,
+                                        borderLeft: `4px solid ${COLORS.Compliant}`
+                                    }}>
+                                        <Typography variant="subtitle2" sx={{ fontWeight: 'bold', color: 'var(--primary)' }}>Evidence Found in Policy:</Typography>
+                                        <Typography variant="body2" sx={{ fontStyle: 'italic', color: '#81c784' }}>"{item.evidence_in_policy}"</Typography>
                                     </Box>
                                 )}
-                                <Box sx={{ p: 2, backgroundColor: '#e3f2fd', borderRadius: 1, borderLeft: '4px solid #1976d2' }}>
-                                    <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>AI Recommendation:</Typography>
-                                    <Typography variant="body2">{item.recommendation}</Typography>
+                                <Box sx={{
+                                    p: 2,
+                                    backgroundColor: 'rgba(56, 189, 248, 0.08)',
+                                    borderRadius: 1,
+                                    borderLeft: '4px solid var(--accent)'
+                                }}>
+                                    <Typography variant="subtitle2" sx={{ fontWeight: 'bold', color: 'var(--accent)' }}>AI Recommendation:</Typography>
+                                    <Typography variant="body2" sx={{ color: 'var(--text-main)' }}>{item.recommendation}</Typography>
                                 </Box>
                             </CardContent>
                         </Card>
