@@ -8,7 +8,7 @@ const PrivacyPolicy = () => {
         py: { xs: 4, sm: 6 }, 
         px: { xs: 2, sm: 3 },
         backgroundColor: 'background.default',
-        minHeight: 'calc(100vh - 128px)', // Account for header and footer
+        minHeight: 'calc(100vh - 128px)',
         display: 'flex',
         flexDirection: 'column',
         width: '100%'
@@ -25,131 +25,101 @@ const PrivacyPolicy = () => {
           }}
         >
           <Typography variant="h4" gutterBottom align="center">
-            Privacy Policy
+            Privacy Policy for Poli-See
           </Typography>
 
           <Typography variant="subtitle1" gutterBottom align="center" color="text.secondary">
-            Last updated: June 2025
+            Last Updated: June 2025
           </Typography>
 
           <Typography variant="body1" paragraph>
-            Welcome to <strong>RegulAid</strong>. We are committed to safeguarding the privacy of individuals who interact with our AI-based compliance platform. This Privacy Policy outlines the types of personal data we collect, how we use it, and the rights and choices available to users, in accordance with the applicable data protection laws of India and the United States.
+            Welcome to <strong>Poli-See</strong>. We are an AI-powered regulatory compliance checking tool designed specifically for non-governmental organizations (NGOs) and non-profit organizations (NPOs). This Privacy Policy outlines how we collect, use, disclose, and protect your information when you use our services.
           </Typography>
 
           <Typography variant="body1" paragraph>
-            This Policy applies to all users of RegulAid, including NGOs and affiliated personnel who utilize our services in India and the United States.
+            This Privacy Policy applies to all users of Poli-See across our supported jurisdictions, including India, the United States, the European Union, the United Kingdom, and Singapore.
           </Typography>
 
-          <Typography variant="h6" gutterBottom>
-            1. Data We Collect
-          </Typography>
           <Typography variant="body1" paragraph>
-            We collect and process the following categories of data:
-          </Typography>
-          <Typography variant="body1" paragraph>
-            • <strong>Legal and Financial Documents:</strong> Documents uploaded for compliance analysis.
-            <br />
-            • <strong>Technical Data:</strong> Including IP addresses and usage metadata.
-            <br />
-            • <strong>Account Information:</strong> Names, email addresses, and credentials if user accounts are created.
+            We collect documents (e.g., policies, reports) uploaded by users for the purpose of regulatory compliance review. We may collect metadata associated with document uploads and general usage data for performance and security monitoring purposes.
           </Typography>
 
-          <Typography variant="h6" gutterBottom>
-            2. How We Use the Data
+          <Typography variant="body1" paragraph>
+            The information you provide is used solely for the operation of our AI compliance tool. Specifically:
           </Typography>
           <Typography variant="body1" paragraph>
-            We use the data solely for the following purposes:
-            <br />
-            • To perform compliance analysis.
-            <br />
-            • To improve and train our AI models (using anonymized or pseudonymized data where feasible).
-            <br />
-            • To communicate with users regarding system updates or inquiries.
-            <br />
-            • To fulfill legal and contractual obligations.
+            • To analyze uploaded documents and provide compliance assessments;<br />
+            • To ensure proper functioning of the platform;<br />
+            • To improve user experience (non-personal, aggregated data only).
           </Typography>
 
           <Typography variant="h6" gutterBottom>
-            3. Data Sharing
+            Data Sharing and Subprocessors
           </Typography>
           <Typography variant="body1" paragraph>
-            We may share data with:
-            <br />
-            • <strong>Cloud and Hosting Providers:</strong> Such as Amazon Web Services (AWS).
-            <br />
-            • <strong>Third-party Tools:</strong> Used for model inference (e.g., LegalBERT). All processors are located within India or the United States and are contractually bound to adhere to data protection obligations.
+            We use third-party service providers, including Amazon Web Services (AWS) for cloud infrastructure and Claude AI 3 for AI processing.
+          </Typography>
+          <Typography variant="body1" paragraph>
+            These providers may have access to data solely for the purpose of providing their contracted services.
+          </Typography>
+          <Typography variant="body1" paragraph>
+            We do not sell or share user data for advertising or commercial gain.
           </Typography>
 
           <Typography variant="h6" gutterBottom>
-            4. Data Security
+            User Rights
           </Typography>
           <Typography variant="body1" paragraph>
-            Data is stored on secure cloud infrastructure. We implement industry-standard measures to protect against unauthorized access, alteration, and disclosure. Detailed security protocols will be published upon internal finalization.
+            Users have the right to:
+          </Typography>
+          <Typography variant="body1" paragraph>
+            • Access, correct, or delete their uploaded data;<br />
+            • Request information on how their data has been used;<br />
+            • Contact us at <strong>[Insert Contact Email]</strong> to exercise these rights.
           </Typography>
 
           <Typography variant="h6" gutterBottom>
-            5. Legal Basis for Processing
+            Data Security
           </Typography>
           <Typography variant="body1" paragraph>
-            We rely on user consent as the primary legal basis for processing personal data, obtained via affirmative acceptance of our Terms and Conditions. We also ensure compliance with:
-            <br />
-            • The Digital Personal Data Protection Act, 2023 (India).
-            <br />
-            • The California Consumer Privacy Act (CCPA), where applicable.
+            Data is protected using industry-standard security measures provided by AWS.
+          </Typography>
+          <Typography variant="body1" paragraph>
+            Uploaded documents are stored securely, and access is restricted to authorized personnel only.
+          </Typography>
+          <Typography variant="body1" paragraph>
+            Encryption protocols are employed where applicable.
           </Typography>
 
           <Typography variant="h6" gutterBottom>
-            6. User Rights
+            Data Retention
           </Typography>
           <Typography variant="body1" paragraph>
-            Users may:
-            <br />
-            • Request access to their data.
-            <br />
-            • Request correction or deletion of their data.
-            <br />
-            • Object to or restrict certain data processing activities.
-            <br />
-            To exercise these rights, please contact us at <strong>[Insert Contact Email]</strong>.
+            User data is retained only as long as necessary to fulfill the services provided.
+          </Typography>
+          <Typography variant="body1" paragraph>
+            Users may request deletion of their data at any time. We aim to comply within 30 days of such requests.
+          </Typography>
+          <Typography variant="body1" paragraph>
+            We are currently formalizing an automatic deletion policy.
           </Typography>
 
-          <Typography variant="h6" gutterBottom>
-            7. Children’s Privacy
-          </Typography>
           <Typography variant="body1" paragraph>
-            RegulAid is not intended for individuals under the age of 18. We do not knowingly collect personal data from minors.
+            We do not use cookies or other tracking technologies for marketing or profiling purposes.
           </Typography>
 
-          <Typography variant="h6" gutterBottom>
-            8. Cookies and Analytics
-          </Typography>
           <Typography variant="body1" paragraph>
-            We may use cookies and third-party analytics tools for functionality and usage analysis. Users will be notified and can manage cookie preferences through our website interface.
+            Data may be processed in jurisdictions outside your own. In such cases, we ensure appropriate safeguards are in place in accordance with applicable data protection laws.
           </Typography>
 
-          <Typography variant="h6" gutterBottom>
-            9. Data Transfers
-          </Typography>
           <Typography variant="body1" paragraph>
-            As all data processors are located within India and the United States, international transfers are not conducted beyond these jurisdictions.
+            We may update this Privacy Policy from time to time. Users will be notified of any material changes.
           </Typography>
 
-          <Typography variant="h6" gutterBottom>
-            10. Policy Updates
-          </Typography>
           <Typography variant="body1" paragraph>
-            We may update this Privacy Policy from time to time. Material changes will be communicated through appropriate channels.
-          </Typography>
-
-          <Typography variant="h6" gutterBottom>
-            11. Contact Us
-          </Typography>
-          <Typography variant="body1" paragraph>
-            For questions or concerns about this Privacy Policy, please contact:
-            <br />
-            <strong>RegulAid</strong><br />
-            <strong>Email:</strong> support@regulaid.com<br />
-            <strong>Website:</strong> www.regulaid.com
+            For any questions or concerns regarding this Privacy Policy, please contact us at:<br />
+            <strong>support@polisee.com</strong><br />
+            <strong>www.polisee.com</strong>
           </Typography>
         </Paper>
       </Container>
@@ -158,4 +128,3 @@ const PrivacyPolicy = () => {
 };
 
 export default PrivacyPolicy;
-// This code defines a Privacy Policy component for the NGO compliance tool, RegulAid.
