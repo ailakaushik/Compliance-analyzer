@@ -13,7 +13,7 @@ import {
 import UploadForm from './components/UploadForm';
 import ComplianceDashboard from './components/ComplianceDashboard';
 import Header from './components/Header';
-import AboutApp from './components/AboutApp'; // ✅ New import
+import AboutApp from './components/AboutApp';
 import Footer from './components/Footer'; // ✅ Import Footer
 
 const theme = createTheme({
@@ -60,7 +60,8 @@ function App() {
       <CssBaseline />
       <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Header />
-        {/* Main Content Area */}
+        
+        {/* Main Content */}
         <Box
           component="main"
           sx={{
@@ -102,7 +103,6 @@ function App() {
                         onAnalysisError={handleAnalysisError}
                       />
                     </Box>
-                    {/* ✅ Show AboutApp below the form only when not loading */}
                     <AboutApp />
                   </>
                 )}
@@ -112,6 +112,9 @@ function App() {
             )}
           </Container>
         </Box>
+
+        {/* ✅ Footer at the bottom */}
+        <Footer />
       </Box>
     </ThemeProvider>
   );
