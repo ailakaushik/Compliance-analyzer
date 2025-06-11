@@ -74,7 +74,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', width: '100%' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', width: '100%', margin: 0, padding: 0 }}>
         <Header />
         <Routes>
           <Route path="/terms-of-use" element={<TermsOfService />} />
@@ -86,12 +86,20 @@ function App() {
               sx={{
                 flexGrow: 1,
                 py: 4,
-                px: { xs: 2, sm: 3 },
+                px: 0, // Remove horizontal padding
                 backgroundColor: 'background.default',
-                width: '100%'
+                width: '100%',
+                margin: 0
               }}
             >
-              <Container maxWidth="xl">
+              <Container 
+                maxWidth={false} // Remove max-width constraint
+                sx={{
+                  px: 0, // Remove container padding
+                  mx: 0, // Remove container margin
+                  width: '100%'
+                }}
+              >
                 <Box sx={{ my: 2 }}>
                   {!analysisResult && !isLoading && (
                     <>
@@ -135,7 +143,6 @@ function App() {
             </Box>
           } />
         </Routes>
-        {/* ✅ Footer at the bottom */}
         <Footer />
       </Box>
     </ThemeProvider>
