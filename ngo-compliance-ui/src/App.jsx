@@ -14,6 +14,7 @@ import UploadForm from './components/UploadForm';
 import ComplianceDashboard from './components/ComplianceDashboard';
 import Header from './components/Header';
 import AboutApp from './components/AboutApp'; // ✅ New import
+import Footer from './components/Footer'; // ✅ Import Footer
 
 const theme = createTheme({
   palette: {
