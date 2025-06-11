@@ -1,64 +1,52 @@
-// src/components/UploadForm.jsx
-import { useState } from 'react';
-import { Button, Box, Input, Typography, Select, MenuItem, FormControl, InputLabel, FormHelperText} from '@mui/material';
-const REGULATION_HELP_TEXT = {
-  'FCRA_INDIA': 'Please upload your organization\'s policy document concerning foreign funding or donations.',
-  'GDPR_EU': 'Please upload your organization\'s policy document concerning data privacy and user data management.'
-};
-// The onAnalyze prop will now receive both the file and the regulation
-function UploadForm({ onAnalyze, isLoading }) {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [regulation, setRegulation] = useState('FCRA_INDIA'); // Default value
-    
-  const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
-  };
-  
-  const handleRegulationChange = (event) => {
-    setRegulation(event.target.value);
-  };
+import React, { useState } from 'react';
+import { Button, Box, Card, CardContent, Typography, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+// --- NEW, RELIABLE ICON IMPORT from react-icons ---
+import { MdUploadFile } from 'react-icons/md';
+import mockAnalysisResult from '../mock-analysis.json';
 
+const UploadForm = ({ onAnalysisStart, onAnalysisSuccess, onAnalysisError }) => {
+  const [file, setFile] = useState(null);
+  const [country, setCountry] = useState('IN');
+  const handleFileChange = (event) => setFile(event.target.files[0]);
+  const handleCountryChange = (event) => setCountry(event.target.value);
   const handleSubmit = (event) => {
     event.preventDefault();
-    onAnalyze(selectedFile, regulation); // Pass both values up
+    if (!file) {
+      onAnalysisError('Please select a file to upload.');
+      return;
+    }
+    onAnalysisStart();
+    setTimeout(() => {
+      onAnalysisSuccess(mockAnalysisResult);
+    }, 2000);
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 4, p: 2, border: '1px dashed grey', borderRadius: 2, textAlign: 'center' }}>
-      
-      {/* Regulation Dropdown */}
-      <FormControl fullWidth sx={{ mb: 2, textAlign: 'left' }}>
-        <InputLabel id="regulation-select-label">Regulation</InputLabel>
-        <Select
-          labelId="regulation-select-label"
-          id="regulation-select"
-          value={regulation}
-          label="Regulation"
-          onChange={handleRegulationChange}
-        >
-          <MenuItem value={'FCRA_INDIA'}>India - FCRA</MenuItem>
-          <MenuItem value={'GDPR_EU'}>EU - GDPR (Data Privacy)</MenuItem>
-          {/* Add more regulations here as you build them out */}
-        </Select>
-      </FormControl>
-      
-      {/* File Upload */}
-      <Input type="file" onChange={handleFileChange} id="file-upload-input" sx={{ display: 'none' }} />
-      <FormHelperText sx={{ mb: 2, textAlign: 'center' }}>
-        {REGULATION_HELP_TEXT[regulation]}
-      </FormHelperText>
-      <label htmlFor="file-upload-input">
-        <Button variant="outlined" component="span">
-          Choose Policy File
-        </Button>
-      </label>
-      {selectedFile && <Typography sx={{ mt: 1 }}>{selectedFile.name}</Typography>}
-      
-      <Button type="submit" variant="contained" sx={{ display: 'block', margin: '1rem auto' }} disabled={isLoading || !selectedFile}>
-        {isLoading ? 'Analyzing...' : 'Analyze Now'}
-      </Button>
-    </Box>
+    <Card sx={{ minWidth: 275, maxWidth: 600, boxShadow: 3 }}>
+        <CardContent>
+            <Typography variant="h5" component="div" gutterBottom>Start Your Compliance Check</Typography>
+            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                    <InputLabel id="country-select-label">Select Country/Region</InputLabel>
+                    <Select labelId="country-select-label" id="country-select" value={country} label="Select Country/Region" onChange={handleCountryChange}>
+                        <MenuItem value="IN">India</MenuItem>
+                        <MenuItem value="US">United States</MenuItem>
+                        <MenuItem value="EU">European Union</MenuItem>
+                        <MenuItem value="UK">United Kingdom</MenuItem>
+                        <MenuItem value="SG">Singapore</MenuItem>
+                    </Select>
+                </FormControl>
+                <Button variant="outlined" component="label" fullWidth startIcon={<MdUploadFile />} sx={{ mb: 2, p: 2 }}>
+                    {file ? file.name : 'Choose Policy File(s) (.zip, .pdf, .docx, .txt)'}
+                    <input type="file" hidden onChange={handleFileChange} />
+                </Button>
+                <Button type="submit" fullWidth variant="contained" disabled={!file} sx={{ p: 1.5, fontWeight: 'bold' }}>
+                    Analyze Now
+                </Button>
+            </Box>
+        </CardContent>
+    </Card>
   );
-}
+};
 
 export default UploadForm;
