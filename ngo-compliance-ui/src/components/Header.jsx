@@ -1,20 +1,54 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography } from '@mui/material';
-// CORRECTED: Using the reliable react-icons library instead of MUI icons
+import { AppBar, Toolbar, Typography, Box, IconButton, useTheme } from '@mui/material';
 import { MdGavel } from 'react-icons/md';
 
 const Header = () => {
+  const theme = useTheme();
+
   return (
-    <AppBar position="static">
-      <Toolbar>
-        {/* 
-          The 'sx' prop is for MUI components.
-          For react-icons, we use standard 'style' and 'size' props.
-        */}
-        <MdGavel size={28} style={{ marginRight: '1rem' }} />
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+    <AppBar
+      position="static"
+      elevation={6}
+      sx={{
+        background: 'linear-gradient(90deg, #1976d2 0%, #42a5f5 100%)',
+        borderRadius: '0 0 18px 18px',
+        boxShadow: '0 4px 24px 0 rgba(25, 118, 210, 0.15)',
+        paddingX: { xs: 1, sm: 4 },
+        paddingY: 0.5,
+      }}
+    >
+      <Toolbar disableGutters>
+        <IconButton
+          size="large"
+          edge="start"
+          aria-label="logo"
+          sx={{
+            background: 'rgba(255,255,255,0.15)',
+            color: '#fff',
+            mr: 2,
+            '&:hover': {
+              background: 'rgba(255,255,255,0.25)',
+            },
+          }}
+        >
+          <MdGavel size={30} />
+        </IconButton>
+        <Typography
+          variant="h5"
+          component="div"
+          sx={{
+            fontWeight: 800,
+            letterSpacing: 1.5,
+            color: '#fff',
+            flexGrow: 1,
+            textShadow: '1px 2px 8px rgba(25, 118, 210, 0.18)',
+          }}
+        >
           NGO Compliance Co-Pilot
         </Typography>
+        <Box sx={{ flexGrow: 0 }}>
+          {/* Placeholder for future actions (user, notifications, etc.) */}
+        </Box>
       </Toolbar>
     </AppBar>
   );

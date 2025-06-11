@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
-import { ThemeProvider, createTheme, CssBaseline, Container, Box, Typography, CircularProgress, Alert } from '@mui/material';
+import {
+  ThemeProvider,
+  createTheme,
+  CssBaseline,
+  Container,
+  Box,
+  Typography,
+  CircularProgress,
+  Alert
+} from '@mui/material';
+
 import UploadForm from './components/UploadForm';
 import ComplianceDashboard from './components/ComplianceDashboard';
 import Header from './components/Header';
+import AboutApp from './components/AboutApp'; // ✅ New import
 
 const theme = createTheme({
   palette: {
@@ -27,14 +38,17 @@ function App() {
     setError('');
     setAnalysisResult(null);
   };
+
   const handleAnalysisSuccess = (result) => {
     setIsLoading(false);
     setAnalysisResult(result);
   };
+
   const handleAnalysisError = (errorMessage) => {
     setIsLoading(false);
     setError(errorMessage);
   };
+
   const handleReset = () => {
     setAnalysisResult(null);
     setError('');
@@ -50,13 +64,11 @@ function App() {
           component="main"
           sx={{
             flexGrow: 1,
-            py: 4, // Add vertical padding
+            py: 4,
             backgroundColor: 'background.default',
           }}
         >
-          {/* Change maxWidth="lg" to "xl" for a wider dashboard feel */}
           <Container maxWidth="xl">
-            {/* Conditional Rendering Logic */}
             <Box sx={{ my: 2 }}>
               {!analysisResult && !isLoading && (
                 <>
@@ -72,18 +84,26 @@ function App() {
             </Box>
 
             {!analysisResult ? (
-              <Box display="flex" justifyContent="center" sx={{ mt: 4 }}>
+              <Box>
                 {isLoading ? (
-                  <Box sx={{ textAlign: 'center' }}>
+                  <Box display="flex" flexDirection="column" alignItems="center" mt={4}>
                     <CircularProgress size={60} />
-                    <Typography variant="h6" sx={{ mt: 2 }}>Analyzing your documents... This may take a moment.</Typography>
+                    <Typography variant="h6" sx={{ mt: 2 }}>
+                      Analyzing your documents... This may take a moment.
+                    </Typography>
                   </Box>
                 ) : (
-                  <UploadForm
-                    onAnalysisStart={handleAnalysisStart}
-                    onAnalysisSuccess={handleAnalysisSuccess}
-                    onAnalysisError={handleAnalysisError}
-                  />
+                  <>
+                    <Box display="flex" justifyContent="center" sx={{ mt: 4 }}>
+                      <UploadForm
+                        onAnalysisStart={handleAnalysisStart}
+                        onAnalysisSuccess={handleAnalysisSuccess}
+                        onAnalysisError={handleAnalysisError}
+                      />
+                    </Box>
+                    {/* ✅ Show AboutApp below the form only when not loading */}
+                    <AboutApp />
+                  </>
                 )}
               </Box>
             ) : (
