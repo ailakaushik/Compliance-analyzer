@@ -104,7 +104,7 @@ const AboutApp = () => {
         color="text.secondary"
         sx={{ textAlign: 'center' }}
       >
-        This tool is part of a broader effort to promote transparency and compliance among NGOs operating in India. It’s currently in beta. For feedback or contributions, please reach out to the development team.
+        This tool is part of a broader effort to promote transparency and compliance among NGOs. It’s currently in beta. For feedback or contributions, please reach out to the development team.
       </Typography>
     </Paper>
   );
