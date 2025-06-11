@@ -69,7 +69,7 @@ const AboutApp = () => {
         color="text.secondary"
         sx={{ textAlign: 'center', mb: 4, maxWidth: 800, mx: 'auto' }}
       >
-        A compliance assistant for Indian NGOs — making legal reviews simple, fast, and accessible. Understand where your organization stands and what you can do to improve.
+        A compliance assistant for NGOs — making legal reviews simple, fast, and accessible. Understand where your organization stands and what you can do to improve.
       </Typography>
 
       <Stack spacing={4}>
